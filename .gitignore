@@ -162,9 +162,8 @@ venv.bak/
 
 .vscode
 
-data/*
-!data/dictionaries
-!data/predictors
-
+data/aligns/*
+data/dataset/*
+data/dataset_eval/*
 misc/
 *.mpg
