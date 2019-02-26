@@ -3,7 +3,8 @@ import os
 
 import dlib
 from colorama import Fore, Style, init
-
+import sys
+sys.path.insert(0,r'../lipnet')
 from common.files import get_file_extension, get_file_name, get_files_in_dir, is_dir, is_file, make_dir_if_not_exists
 from preprocessing.extract_roi import video_to_frames
 
