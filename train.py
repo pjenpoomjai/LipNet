@@ -11,6 +11,7 @@ import env
 from common.decode import create_decoder
 from common.files import is_dir, make_dir_if_not_exists
 from core.callbacks.error_rates import ErrorRates
+
 from core.generators.dataset_generator import DatasetGenerator
 from core.model.lipnet import LipNet
 
@@ -30,6 +31,7 @@ class TrainingConfig(NamedTuple):
 	dataset_path:   str
 	aligns_path:    str
 	epochs:         int = 1
+	start_epochs: 	int = 1
 	frame_count:    int = env.FRAME_COUNT
 	image_width:    int = env.IMAGE_WIDTH
 	image_height:   int = env.IMAGE_HEIGHT
@@ -62,6 +64,7 @@ def main():
 	ap.add_argument('-a', '--aligns-path', required=True, help='Path to the directory containing all align files')
 	ap.add_argument('-e', '--epochs', required=False, help='(Optional) Number of epochs to run', type=int, default=1)
 	ap.add_argument('-ic', '--ignore-cache', required=False, help='(Optional) Force the generator to ignore the cache file', action='store_true', default=False)
+	ap.add_argument('-s', '--start-epochs', required=False, help='Last Epochs to continue train',type=int, default=1)
 
 	args = vars(ap.parse_args())
 
@@ -69,6 +72,7 @@ def main():
 	aligns_path  = os.path.realpath(args['aligns_path'])
 	epochs       = args['epochs']
 	ignore_cache = args['ignore_cache']
+	start_epochs = args['start_epochs']
 
 	if not is_dir(dataset_path):
 		print(Fore.RED + '\nERROR: The dataset path is not a directory')
@@ -82,10 +86,13 @@ def main():
 		print(Fore.RED + '\nERROR: The number of epochs must be a valid integer greater than zero')
 		return
 
-	name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
-	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache)
+	# name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
+	name = '2019-02-21-20-48'
+	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache, start_epochs=start_epochs)
 
+	
 	train(name, config)
+	
 
 
 def train(run_name: str, config: TrainingConfig):
@@ -97,7 +104,11 @@ def train(run_name: str, config: TrainingConfig):
 	make_dir_if_not_exists(OUTPUT_DIR)
 	make_dir_if_not_exists(LOG_DIR)
 
-	lipnet = LipNet(config.frame_count, config.image_channels, config.image_height, config.image_width, config.max_string).compile_model()
+	lipnet = LipNet(config.frame_count, config.image_channels, config.image_height, config.image_width, config.max_string)
+	lipnet.compile_model()
+	if config.start_epochs > 1:
+		weight_file = os.path.join(OUTPUT_DIR, os.path.join(run_name, 'lipnet_%03d.hdf5'%(config.start_epochs - 1)))
+		lipnet.load_weights(weight_file)
 
 	datagen = DatasetGenerator(config.dataset_path, config.aligns_path, config.batch_size, config.max_string, config.val_split, config.use_cache)
 
@@ -111,12 +122,13 @@ def train(run_name: str, config: TrainingConfig):
 		generator      =datagen.train_generator,
 		validation_data=datagen.val_generator,
 		epochs         =config.epochs,
+		initial_epoch=config.start_epochs,
 		verbose        =1,
 		shuffle        =True,
 		max_queue_size =5,
 		workers        =2,
 		callbacks      =callbacks,
-		use_multiprocessing=True
+		use_multiprocessing=False
 	)
 
 	elapsed_time = time.time() - start_time
@@ -138,16 +150,17 @@ def create_callbacks(run_name: str, lipnet: LipNet, datagen: DatasetGenerator) -
 	checkpoint_dir = os.path.join(OUTPUT_DIR, run_name)
 	make_dir_if_not_exists(checkpoint_dir)
 
-	checkpoint_template = os.path.join(checkpoint_dir, "lipnet_{epoch:03d}_{val_loss:.2f}.hdf5")
+	checkpoint_template = os.path.join(checkpoint_dir, "lipnet_{epoch:03d}.hdf5")
 	checkpoint = ModelCheckpoint(checkpoint_template, monitor='val_loss', save_weights_only=True, mode='auto', period=1, verbose=1)
 
 	# WER/CER Error rate calculator
 	error_rate_log = os.path.join(run_log_dir, 'error_rates.csv')
+	error_rate_logger = CSVLogger(error_rate_log, separator=',', append=True)
 
 	decoder = create_decoder(DICTIONARY_PATH, False)
 	error_rates = ErrorRates(error_rate_log, lipnet, datagen.val_generator, decoder)
 
-	return [checkpoint, csv_logger, error_rates, tensorboard]
+	return [checkpoint, csv_logger, error_rate_logger, tensorboard]
 
 
 if __name__ == '__main__':
