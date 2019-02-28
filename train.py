@@ -128,7 +128,7 @@ def train(run_name: str, config: TrainingConfig):
 		max_queue_size =5,
 		workers        =2,
 		callbacks      =callbacks,
-		use_multiprocessing=False
+		use_multiprocessing=True
 	)
 
 	elapsed_time = time.time() - start_time
@@ -155,10 +155,10 @@ def create_callbacks(run_name: str, lipnet: LipNet, datagen: DatasetGenerator) -
 
 	# WER/CER Error rate calculator
 	error_rate_log = os.path.join(run_log_dir, 'error_rates.csv')
-	error_rate_logger = CSVLogger(error_rate_log, separator=',', append=True)
+	# error_rate_logger = CSVLogger(error_rate_log, separator=',', append=True)
 
 	decoder = create_decoder(DICTIONARY_PATH, False)
-	error_rates = ErrorRates(error_rate_logger, lipnet, datagen.val_generator, decoder)
+	error_rates = ErrorRates(error_rate_log, lipnet, datagen.val_generator, decoder)
 
 	return [checkpoint, csv_logger, error_rates, tensorboard]
 
