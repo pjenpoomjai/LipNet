@@ -158,9 +158,9 @@ def create_callbacks(run_name: str, lipnet: LipNet, datagen: DatasetGenerator) -
 	error_rate_logger = CSVLogger(error_rate_log, separator=',', append=True)
 
 	decoder = create_decoder(DICTIONARY_PATH, False)
-	error_rates = ErrorRates(error_rate_log, lipnet, datagen.val_generator, decoder)
+	error_rates = ErrorRates(error_rate_logger, lipnet, datagen.val_generator, decoder)
 
-	return [checkpoint, csv_logger, error_rate_logger, tensorboard]
+	return [checkpoint, csv_logger, error_rates, tensorboard]
 
 
 if __name__ == '__main__':
