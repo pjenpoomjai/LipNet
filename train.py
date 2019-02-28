@@ -86,8 +86,8 @@ def main():
 		print(Fore.RED + '\nERROR: The number of epochs must be a valid integer greater than zero')
 		return
 
-	# name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
-	name = '2019-02-21-20-48'
+	name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
+	name = '2019-02-27-08-37'
 	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache, start_epochs=start_epochs)
 
 	
