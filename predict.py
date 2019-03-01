@@ -16,7 +16,7 @@ from core.helpers.video import get_video_data_from_file, reshape_and_normalize_v
 from core.model.lipnet import LipNet
 from core.utils.visualization import visualize_video_subtitle
 from preprocessing.extract_roi import extract_video_data
-
+from core.video import video_to_frames
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 init(autoreset=True)
@@ -30,7 +30,7 @@ class PredictConfig(NamedTuple):
 	weights:        str
 	video_path:     str
 	predictor_path: str
-	frame_count:    int = env.FRAME_COUNT
+	frame_count:    int
 	image_width:    int = env.IMAGE_WIDTH
 	image_height:   int = env.IMAGE_HEIGHT
 	image_channels: int = env.IMAGE_CHANNELS
@@ -79,7 +79,8 @@ def main():
 		print(Fore.RED + '\nERROR: Predictor path is not a valid file')
 		return
 
-	config = PredictConfig(weights, video, predictor_path)
+	fcount = video_to_frames(os.path.join(video,'p.mpg'))
+	config = PredictConfig(weights, video, predictor_path, fcount)
 	predict(config)
 
 
@@ -90,7 +91,6 @@ def predict(config: PredictConfig):
 	print('Using predictor at: {}'.format(config.predictor_path))
 
 	print('\nMaking predictions...\n')
-
 	lipnet = LipNet(config.frame_count, config.image_channels, config.image_height, config.image_width, config.max_string).compile_model().load_weights(config.weights)
 
 	valid_paths   = []
@@ -105,13 +105,14 @@ def predict(config: PredictConfig):
 		input_lengths += lengths
 
 		predictions = y_pred if predictions is None else np.append(predictions, y_pred, axis=0)
-
+	
 		y_pred_len = len(y_pred)
 		elapsed_videos += y_pred_len
 
 		print('Predicted batch of {} videos\t({} elapsed)'.format(y_pred_len, elapsed_videos))
 
 	decoder = create_decoder(DICTIONARY_PATH)
+
 	results = decode_predictions(predictions, input_lengths, decoder)
 
 	print('\n\nRESULTS:\n')
@@ -140,7 +141,6 @@ def get_list_of_videos(path: str) -> [str]:
 	else:
 		print('Predicting batch at: {}'.format(path))
 		video_paths = get_video_files_in_dir(path)
-
 	return video_paths
 
 
@@ -172,11 +172,9 @@ def predict_batches(lipnet: LipNet, video_paths: [str], predictor_path: str):
 	for paths in chunks(video_paths, batch_size):
 		input_data = [(p, get_video_data(p, detector, predictor)) for p in paths]
 		input_data = [x for x in input_data if x[1] is not None]
-
 		if len(input_data) <= 0: continue
 
 		valid_paths = [x[0] for x in input_data]
-
 		x_data  = np.array([x[1] for x in input_data])
 		lengths = [len(x) for x in x_data]
 

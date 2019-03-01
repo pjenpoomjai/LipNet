@@ -38,9 +38,9 @@ def extract_video_data(path: str, detector, predictor, verbose: bool=True) -> Op
 	video_data     = skvideo.io.vread(path)
 	video_data_len = len(video_data)
 
-	if video_data_len != env.FRAME_COUNT:
-		print(ERROR_LOG + 'Wrong number of frames: {}'.format(video_data_len))
-		return None
+	# if video_data_len != env.FRAME_COUNT:
+	# 	print(ERROR_LOG + 'Wrong number of frames: {}'.format(video_data_len))
+	# 	return None
 
 	mouth_data = []
 	bar = ShadyBar(get_file_name(path) + '.npy', max=video_data_len, suffix='%(percent)d%% [%(elapsed_td)s]') if verbose else None
