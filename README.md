@@ -77,7 +77,7 @@ optional arguments:
 i.e:
 
 ```
-python preprocessing/extract.py -v GRID -o data/dataset
+python preprocessing/extract.py -v GRID -o data/dataset -p *.mpg
 ```
 
 This results in a new directory with the preprocessed dataset:
