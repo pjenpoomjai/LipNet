@@ -167,3 +167,4 @@ data/dataset/*
 data/dataset_eval/*
 misc/
 *.mpg
+GRID/*
