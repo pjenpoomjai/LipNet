@@ -14,7 +14,7 @@ from core.callbacks.error_rates import ErrorRates
 
 from core.generators.dataset_generator import DatasetGenerator
 from core.model.lipnet import LipNet
-
+from core.video import video_to_frames
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 init(autoreset=True)
@@ -87,10 +87,10 @@ def main():
 		return
 
 	name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
-	name = '2019-02-27-08-37'
+	#name = 'thai'
 	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache, start_epochs=start_epochs)
 
-	
+        	
 	train(name, config)
 	
 
