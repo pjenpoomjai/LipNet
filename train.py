@@ -24,7 +24,7 @@ ROOT_PATH  = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_DIR = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'res'))
 LOG_DIR    = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'res_logs'))
 
-DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'grid.txt'))
+DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'thai.txt'))
 
 
 class TrainingConfig(NamedTuple):
