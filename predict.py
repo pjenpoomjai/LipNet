@@ -112,9 +112,7 @@ def predict(config: PredictConfig):
 		print('Predicted batch of {} videos\t({} elapsed)'.format(y_pred_len, elapsed_videos))
 
 	decoder = create_decoder(DICTIONARY_PATH)
-
 	results = decode_predictions(predictions, input_lengths, decoder)
-
 	print('\n\nRESULTS:\n')
 
 	display   = query_yes_no('List all prediction outputs?', True)

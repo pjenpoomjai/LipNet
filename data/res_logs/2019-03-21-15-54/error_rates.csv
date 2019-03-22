@@ -1,0 +1,2 @@
+epoch,samples,wer,wer_norm,cer,cer_norm
+0,256,1.0,1.0,2.0,0.6666666666666656

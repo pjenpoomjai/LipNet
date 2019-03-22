@@ -68,7 +68,6 @@ class BatchGenerator(Sequence):
 				sentences.append(sentence)
 		
 		batch_size = len(x_data)
-
 		x_data = np.array(x_data)
 		x_data = self.standardize_batch(x_data)
 

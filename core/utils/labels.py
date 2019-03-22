@@ -9,19 +9,22 @@ def text_to_labels(text: str) -> [chr]:
 			ret.append(ord(char) - ord('a'))
 		elif char == ' ':
 			ret.append(26)
-		# else:
-		# 	ret.append(ord(char) - ord('ก'))
+		else:
+			ret.append(ord(char) - ord('ก'))
+	print('APPEND_TXT_LABEL', ret)
 	return ret
 
 
 def labels_to_text(labels: [chr]) -> str:
+	print('label',labels)
 	# 26 is space, 27 is CTC blank char
 	text = ''
 	for c in labels:
-		if 0 <= c < 26:
-			text += chr(c + ord('a'))
-		elif c == 26:
-			text += ' '
+		# if 0 <= c < 26:
+		# 	text += chr(c + ord('a'))
+		# elif c == 26:
+		# 	text += ' '
 		# else:
-		# 	text += chr(c + ord('ก'))
+		text += chr(c + ord('ก'))
+	print('APPEND', text)
 	return text

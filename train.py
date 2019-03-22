@@ -24,7 +24,7 @@ ROOT_PATH  = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_DIR = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'res'))
 LOG_DIR    = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'res_logs'))
 
-DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'thai.txt'))
+DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'grid.txt'))
 
 
 class TrainingConfig(NamedTuple):
@@ -64,7 +64,7 @@ def main():
 	ap.add_argument('-a', '--aligns-path', required=True, help='Path to the directory containing all align files')
 	ap.add_argument('-e', '--epochs', required=False, help='(Optional) Number of epochs to run', type=int, default=1)
 	ap.add_argument('-ic', '--ignore-cache', required=False, help='(Optional) Force the generator to ignore the cache file', action='store_true', default=False)
-	ap.add_argument('-s', '--start-epochs', required=False, help='Last Epochs to continue train',type=int, default=1)
+	ap.add_argument('-s', '--start-epochs', required=False, help='Last Epochs to continue train',type=int, default=0)
 
 	args = vars(ap.parse_args())
 

@@ -33,12 +33,16 @@ def tokenize(text: str) -> list:
 class Spell(object):
 
 	def __init__(self, path: str):
-		self.dictionary = Counter(list(string.punctuation) + self.words(open(path).read()))
-
+		with open(path,'r',encoding='utf-8-sig') as f:
+			word = f.read()
+		print('word',self.words(word))
+		self.dictionary = Counter(list(string.punctuation) + self.words(word) )
+		print('dic: ',self.dictionary)
 
 	@staticmethod
 	def words(text: str) -> list:
-		return re.findall(r'\w+', text.lower())
+		return text.split('\n')
+		# return re.findall(r'\w+', text.lower())
 
 
 	def p(self, word: str, n=None) -> float:
@@ -87,4 +91,5 @@ class Spell(object):
 
 	# Correct sentence
 	def sentence(self, sentence: str) -> str:
+		print('sen',sentence)
 		return untokenize(self.corrections(tokenize(sentence)))

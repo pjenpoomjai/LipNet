@@ -23,7 +23,6 @@ def align_from_file(path: str, max_string: int) -> Align:
 	sentence = __get_align_sentence(align, __SILENCE_TOKENS)
 	labels   = __get_sentence_labels(sentence)
 	padded_labels = __get_padded_label(labels, max_string)
-
 	return Align(sentence, padded_labels, len(labels))
 
 
