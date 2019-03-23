@@ -1,11 +1,13 @@
 import numpy as np
-from matplotlib import patheffects as path_effects, pyplot as plt
-
+from matplotlib import patheffects as path_effects, pyplot as plt,font_manager as fm
 
 FRAME_RATE = 1 / 25
 
 
 def visualize_video_subtitle(video_frames: np.ndarray, subtitle: str, swap_axes: bool = True):
+	font_list = fm.createFontList(['THSarabunNew.ttf'])
+	fm.fontManager.ttflist.extend(font_list)
+	plt.rcParams['font.family'] = 'TH Sarabun New'
 	if swap_axes:
 		video_frames = np.swapaxes(video_frames, 1, 2)
 

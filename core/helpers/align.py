@@ -14,7 +14,7 @@ class Align(NamedTuple):
 
 
 def align_from_file(path: str, max_string: int) -> Align:
-	with open(path, 'r') as f:
+	with open(path, 'r',encoding='utf-8-sig') as f:
 		lines = f.readlines()
 
 	align = [(int(y[0]) / 1000, int(y[1]) / 1000, y[2]) for y in [x.strip().split(' ') for x in lines]]

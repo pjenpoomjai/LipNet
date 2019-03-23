@@ -23,7 +23,7 @@ init(autoreset=True)
 
 
 ROOT_PATH       = os.path.dirname(os.path.realpath(__file__))
-DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'english.txt'))
+DICTIONARY_PATH = os.path.realpath(os.path.join(ROOT_PATH, 'data', 'dictionaries', 'thai.txt'))
 
 
 class PredictConfig(NamedTuple):
