@@ -18,7 +18,6 @@ class Decoder(object):
 
 		for d in decoded:
 			for f in self.postprocessors:
-				print(f) 
 				d = f(d)
 			postprocessed.append(d)
 			print('CHECK : ',postprocessed)

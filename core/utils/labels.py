@@ -4,13 +4,14 @@
 
 def text_to_labels(text: str) -> [chr]:
 	ret = []
+	print('text:',text)
 	for char in text:
-		if 'a' <= char <= 'z':
-			ret.append(ord(char) - ord('a'))
-		elif char == ' ':
+		# if 'a' <= char <= 'z':
+		# 	ret.append(ord(char) - ord('a'))
+		if char == ' ':
 			ret.append(-99)
 		elif ord(char) - ord('ก')>=0:
-			ret.append(ord(char) - ord('ก') + 40)
+			ret.append(ord(char) - ord('ก'))
 	print('APPEND_TXT_LABEL', ret)
 	return ret
 
@@ -20,11 +21,11 @@ def labels_to_text(labels: [chr]) -> str:
 	# 26 is space, 27 is CTC blank char
 	text = ''
 	for c in labels:
-	# 	if 0 <= c < 26:
-	# 		text += chr(c + ord('a'))
-	# 	elif c == -99:
-	# 		text += ' '
-	# 	elif c>=40:
-		text += chr(c + ord('ก') )
+		# if 0 <= c < 26:
+		# 	text += chr(c + ord('a'))
+		if c == -99:
+			text += ' '
+		elif c>=0:
+			text += chr(c + ord('ก'))
 	print('APPEND', text)
 	return text
