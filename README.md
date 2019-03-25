@@ -140,7 +140,7 @@ optional arguments:
 i.e:
 
 ```
-python predict.py -w data/res/2018-09-26-02-30/lipnet_065_1.96.hdf5 -v data/dataset_eval
+python predict.py -w data/res/2018-09-26-02-30/lipnet_001.hdf5 -v data/dataset_eval
 ```
 
 ### Configuration
