@@ -83,10 +83,11 @@ python preprocessing/extract.py -v GRID -o data/dataset -p *.mpg
 This results in a new directory with the preprocessed dataset:
 
 ```
-dataset:
-├───s1
-├───s2
-└───...
+data:
+├───dataset:
+    ├───s1
+    ├───s2
+    └───...
 ```
 
 The original article excluded speakers S1, S2, S20 and S22 from the training dataset.
@@ -108,6 +109,20 @@ optional arguments:
                         (Optional) Number of epochs to run
   -ic, --ignore-cache   (Optional) Force the generator to ignore the cache
                         file
+```
+Given the following directory structure:
+
+```
+data:
+├───aligns:
+    ├───s1
+    │   ├───bbaf2n.align
+    │   ├───bbaf3s.align
+    │   └───...
+    ├───s2
+    │   └───...
+    └───...
+        └───...
 ```
 
 i.e:
@@ -139,8 +154,9 @@ optional arguments:
 Given the following directory structure:
 
 ```
-dataset_eval:
-├───p.mpg
+data:
+├───dataset_eval:
+    ├───p.mpg
 ```
 
 i.e:
