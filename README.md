@@ -161,7 +161,7 @@ Related to the videos:
 
 Related to the neural net:
 - **MAX_STRING:** The maximum amount of characters to expect as the encoded align sentence vector
-- **OUTPUT_SIZE:** The maximum amount of characters to expect as the prediction output
+- **OUTPUT_SIZE:** The maximum amount of characters to expect as the prediction output (a-z 28)
 - **BATCH_SIZE:** The amount of videos to read by batch
 - **VAL_SPLIT:** The fraction between 0.0 and 1.0 of the videos to take as the validation set
 
