@@ -14,8 +14,8 @@ The best training completed yet was started the 26th of September, 2018:
 
 ### Prerequisites
 
-Go to [Python's official site](http://python.org) to download and install Python version 3.6.6. If in a Unix/Linux system, follow your package manager's instructions to install the correct version of Python, some distros might already have such version. This project has not been tested in higher Python versions and it might not work properly.
-
+- Python version 3.6.6
+- Tensorflow GPU 1.10.0 (or Tensorflow 1.10.0 )
 If using with TensorFlow GPU, follow [TensorFlow's](https://www.tensorflow.org/install/gpu) and [NVIDIA's CUDA](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html) installation guides. This proyect was tested with TensorFlow GPU 1.10.0 and CUDA 9.0.
 
 ### Installation
@@ -130,11 +130,17 @@ usage: predict.py [-h] -v VIDEO_PATH -w WEIGHTS_PATH [-pp PREDICTOR_PATH]
 optional arguments:
   -h, --help            show this help message and exit
   -v VIDEO_PATH, --video-path VIDEO_PATH
-                        Path to video file or batch directory to analize
+                        Path to video file or batch directory to analize **rename file to p.mpg
   -w WEIGHTS_PATH, --weights-path WEIGHTS_PATH
                         Path to .hdf5 trained weights file
   -pp PREDICTOR_PATH, --predictor-path PREDICTOR_PATH
                         (Optional) Path to the predictor .dat file
+```
+Given the following directory structure:
+
+```
+dataset_eval:
+├───p.mpg
 ```
 
 i.e:
