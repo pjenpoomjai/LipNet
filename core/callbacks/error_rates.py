@@ -14,7 +14,7 @@ from core.utils.wer import wer_sentence
 
 class ErrorRates(Callback):
 
-	def __init__(self, output_path: str, lipnet: LipNet, val_generator: Sequence, decoder: Decoder, samples: int = 20):
+	def __init__(self, output_path: str, lipnet: LipNet, val_generator: Sequence, decoder: Decoder, samples: int = 256):
 		super().__init__()
 
 		self.output_path = output_path
