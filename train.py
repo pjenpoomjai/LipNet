@@ -117,7 +117,6 @@ def train(run_name: str, config: TrainingConfig):
 	print('\nStarting training...\n')
 
 	start_time = time.time()
-
 	lipnet.model.fit_generator(
 		generator      =datagen.train_generator,
 		validation_data=datagen.val_generator,
