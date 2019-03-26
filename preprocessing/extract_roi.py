@@ -44,11 +44,17 @@ def extract_video_data(path: str, detector, predictor, verbose: bool=True) -> Op
 
 	mouth_data = []
 	bar = ShadyBar(get_file_name(path) + '.npy', max=video_data_len, suffix='%(percent)d%% [%(elapsed_td)s]') if verbose else None
-
+	countOfNone = 1
 	for i, f in enumerate(video_data):
 		c = extract_mouth_on_frame(f, detector, predictor, i)
 		if c is None: return None
 		mouth_data.append(c)
+		# if c is None: 
+		# 	countOfNone+=1
+		# else:
+		# 	while countOfNone>=1:
+		# 		mouth_data.append(c)
+		# 		countOfNone -=1
 
 		if verbose and bar: bar.next()
 
