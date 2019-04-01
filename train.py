@@ -87,7 +87,7 @@ def main():
 		return
 
 	name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
-	#name = 'thai'
+	name = 'thai'
 	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache, start_epochs=start_epochs)
 
         	
@@ -107,7 +107,7 @@ def train(run_name: str, config: TrainingConfig):
 	lipnet = LipNet(config.frame_count, config.image_channels, config.image_height, config.image_width, config.max_string)
 	lipnet.compile_model()
 	if config.start_epochs > 1:
-		weight_file = os.path.join(OUTPUT_DIR, os.path.join(run_name, 'lipnet_%03d.hdf5'%(config.start_epochs - 1)))
+		weight_file = os.path.join(OUTPUT_DIR, os.path.join(run_name, 'lipnet_%04d.hdf5'%(config.start_epochs - 1)))
 		lipnet.load_weights(weight_file)
 
 	datagen = DatasetGenerator(config.dataset_path, config.aligns_path, config.batch_size, config.max_string, config.val_split, config.use_cache)
@@ -149,7 +149,7 @@ def create_callbacks(run_name: str, lipnet: LipNet, datagen: DatasetGenerator) -
 	checkpoint_dir = os.path.join(OUTPUT_DIR, run_name)
 	make_dir_if_not_exists(checkpoint_dir)
 
-	checkpoint_template = os.path.join(checkpoint_dir, "lipnet_{epoch:03d}.hdf5")
+	checkpoint_template = os.path.join(checkpoint_dir, "lipnet_{epoch:04d}.hdf5")
 	checkpoint = ModelCheckpoint(checkpoint_template, monitor='val_loss', save_weights_only=True, mode='auto', period=1, verbose=1)
 
 	# WER/CER Error rate calculator
