@@ -59,7 +59,8 @@ class Spell(object):
 
 	def candidates(self, word):
 		"""Generate possible spelling corrections for word."""
-		return self.known([word]) or self.known(self.edits1(word)) or self.known(self.edits2(word)) or [word]
+		# return self.known([word]) or self.known(self.edits1(word)) or self.known(self.edits2(word)) or [word]
+		return self.known([word]) or [word]
 
 
 	def known(self, words) -> set:
