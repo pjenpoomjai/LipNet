@@ -62,7 +62,7 @@ class LipNet(object):
 		if optimizer is None:
 			optimizer = Adam(lr=ADAM_LEARN_RATE, beta_1=ADAM_F_MOMENTUM, beta_2=ADAM_S_MOMENTUM, epsilon=ADAM_STABILITY)
 
-		self.model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=optimizer)
+		self.model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=optimizer, metrics=['accuracy'])
 		return self
 
 
