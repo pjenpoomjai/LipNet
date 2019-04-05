@@ -129,7 +129,6 @@ def train(run_name: str, config: TrainingConfig):
 		callbacks      =callbacks,
 		use_multiprocessing=True
 	)
-
 	elapsed_time = time.time() - start_time
 	print('\nTraining completed in: {}'.format(datetime.timedelta(seconds=elapsed_time)))
 
