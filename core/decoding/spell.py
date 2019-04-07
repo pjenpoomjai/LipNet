@@ -75,7 +75,7 @@ class Spell(object):
 		letters    = 'ิื์ใ็้เ่๋า๊ีัํำไุูึะโ'
 		for i in range(ord('ก'),ord('ฮ')):
 			letters += chr(i)
-		
+
 		splits     = [(word[:i], word[i:]) for i in range(len(word) + 1)]
 		deletes    = [L + R[1:] for L, R in splits if R]
 		transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R) > 1]
@@ -98,6 +98,10 @@ class Spell(object):
 	def sentence(self, sentence: str) -> str:
 		print('sen',sentence)
 		# an = untokenize(self.corrections(tokenize(sentence)))
+<<<<<<< HEAD
 		an = ''.join((self.corrections(tokenize(sentence))))
+=======
+		an = ''.join(self.corrections(tokenize(sentence)))
+>>>>>>> master
 		print('an',an)
-		return an 
+		return an
