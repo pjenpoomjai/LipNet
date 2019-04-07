@@ -98,10 +98,6 @@ class Spell(object):
 	def sentence(self, sentence: str) -> str:
 		print('sen',sentence)
 		# an = untokenize(self.corrections(tokenize(sentence)))
-<<<<<<< HEAD
-		an = ''.join((self.corrections(tokenize(sentence))))
-=======
 		an = ''.join(self.corrections(tokenize(sentence)))
->>>>>>> master
 		print('an',an)
 		return an
