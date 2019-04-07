@@ -97,4 +97,6 @@ class Spell(object):
 	# Correct sentence
 	def sentence(self, sentence: str) -> str:
 		print('sen',sentence)
-		return untokenize(self.corrections(tokenize(sentence)))
+		an = untokenize(self.corrections(tokenize(sentence)))
+		print('an',an)
+		return an 
