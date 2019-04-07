@@ -59,8 +59,8 @@ class Spell(object):
 
 	def candidates(self, word):
 		"""Generate possible spelling corrections for word."""
-		return self.known([word]) or self.known(self.edits1(word)) or self.known(self.edits2(word)) or [word]
-		# return self.known([word]) or [word]
+		# return self.known([word]) or self.known(self.edits1(word)) or self.known(self.edits2(word)) or [word]
+		return self.known([word]) or [word]
 
 
 	def known(self, words) -> set:
@@ -97,4 +97,6 @@ class Spell(object):
 	# Correct sentence
 	def sentence(self, sentence: str) -> str:
 		print('sen',sentence)
-		return untokenize(self.corrections(tokenize(sentence)))
+		an = untokenize(self.corrections(tokenize(sentence)))
+		print('an',an)
+		return an 
