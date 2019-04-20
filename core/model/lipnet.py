@@ -15,6 +15,7 @@ ADAM_STABILITY  = 1e-08
 class LipNet(object):
 
 	def __init__(self, frame_count: int, image_channels: int, image_height: int, image_width: int, max_string: int, output_size: int = env.OUTPUT_SIZE):
+		print('asd ',image_height, image_width)
 		input_shape = self.get_input_shape(frame_count, image_channels, image_height, image_width)
 		self.input_layer = layers.create_input_layer('input', input_shape)
 
@@ -67,7 +68,7 @@ class LipNet(object):
 
 
 	def load_weights(self, path: str):
-		self.model.load_weights(path)
+		self.model.load_weights(path,reshape=True)
 		return self
 
 

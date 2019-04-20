@@ -75,6 +75,9 @@ def extract_mouth_on_frame(frame: np.ndarray, detector, predictor, idx: int) -> 
 	s_m_center = swap_center_axis(m_center)
 
 	crop = crop_image(frame, s_m_center, IMAGE_SIZE)
+	cv2.imshow('frame',frame)
+	cv2.imshow('crop',crop)
+	cv2.waitKey(500)
 
 	if crop.shape != FRAME_SHAPE:
 		print('\n' + ERROR_LOG + 'Wrong shape {} at frame {}'.format(crop.shape, idx))

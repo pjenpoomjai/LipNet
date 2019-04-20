@@ -85,7 +85,6 @@ class BatchGenerator(Sequence):
 		}
 
 		outputs = {'ctc': np.zeros([batch_size])}  # dummy data for dummy loss function
-
 		return inputs, outputs
 
 
