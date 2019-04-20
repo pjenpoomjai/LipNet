@@ -88,7 +88,7 @@ def main():
 
 	name   = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
 	# name = 'thai'
-	# name = '2019-04-05-15-24'
+	# name = 'test3'
 	config = TrainingConfig(dataset_path, aligns_path, epochs=epochs, use_cache=not ignore_cache, start_epochs=start_epochs)
 
         	
