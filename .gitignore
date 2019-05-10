@@ -167,6 +167,8 @@ data/dataset/*
 data/dataset_eval/*
 data/res/*
 data/res_logs/*
+*.mp4
+*.npy
 misc/
 *.mpg
 GRID/*
