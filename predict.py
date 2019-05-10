@@ -79,7 +79,9 @@ def main():
 		print(Fore.RED + '\nERROR: Predictor path is not a valid file')
 		return
 
-	fcount = video_to_frames(os.path.join(video,'p.mpg'))
+	# fcount = video_to_frames()
+	video_data     = skvideo.io.vread(os.path.join(video,'p.mpg'))
+	fcount = len(video_data)
 	config = PredictConfig(weights, video, predictor_path, fcount)
 	predict(config)
 
@@ -175,10 +177,10 @@ def predict_batches(lipnet: LipNet, video_paths: [str], predictor_path: str):
 		valid_paths = [x[0] for x in input_data]
 		x_data  = np.array([x[1] for x in input_data])
 		lengths = [len(x) for x in x_data]
-
 		y_pred = lipnet.predict(x_data)
 
 		yield (valid_paths, lengths, y_pred)
+	
 
 
 def decode_predictions(y_pred: np.ndarray, input_lengths: list, decoder) -> list:

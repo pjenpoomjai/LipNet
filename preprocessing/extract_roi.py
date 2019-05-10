@@ -23,7 +23,7 @@ ERROR_LOG   = Back.RED + Fore.BLACK + 'ERROR: '
 def video_to_frames(video_path: str, output_path: str, detector, predictor) -> bool:
 	video_path = os.path.realpath(video_path)
 	video_data = extract_video_data(video_path, detector, predictor)
-
+	
 	if video_data is None:
 		return False
 	else:
@@ -41,14 +41,12 @@ def extract_video_data(path: str, detector, predictor, verbose: bool=True) -> Op
 	# if video_data_len != env.FRAME_COUNT:
 	# 	print(ERROR_LOG + 'Wrong number of frames: {}'.format(video_data_len))
 	# 	return None
-
 	mouth_data = []
 	bar = ShadyBar(get_file_name(path) + '.npy', max=video_data_len, suffix='%(percent)d%% [%(elapsed_td)s]') if verbose else None
 	for i, f in enumerate(video_data):
 		c = extract_mouth_on_frame(f, detector, predictor, i)
-		if c is None: return None
+		if c is None: continue
 		mouth_data.append(c)
-
 		if verbose and bar: bar.next()
 
 	mouth_data = np.array(mouth_data)
@@ -59,7 +57,6 @@ def extract_video_data(path: str, detector, predictor, verbose: bool=True) -> Op
 
 def extract_mouth_on_frame(frame: np.ndarray, detector, predictor, idx: int) -> Optional[np.ndarray]:
 	m_points = extract_mouth_points(frame, detector, predictor)
-
 	if m_points is None:
 		print('\n' + ERROR_LOG + 'No ROI found at frame {}'.format(idx))
 		return None
