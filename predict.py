@@ -16,7 +16,6 @@ from core.helpers.video import get_video_data_from_file, reshape_and_normalize_v
 from core.model.lipnet import LipNet
 from core.utils.visualization import visualize_video_subtitle
 from preprocessing.extract_roi import extract_video_data
-from core.video import video_to_frames
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 init(autoreset=True)
